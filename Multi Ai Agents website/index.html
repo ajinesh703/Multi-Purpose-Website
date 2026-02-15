@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbots Directory - Your Gateway to Artificial Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #131318;
+            --bg-card: #1a1a24;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #ff006e;
+            --accent-tertiary: #ffbe0b;
+            --text-primary: #e8e8ee;
+            --text-secondary: #9999aa;
+            --text-muted: #606070;
+            --border-color: #2a2a35;
+            --shadow: rgba(0, 212, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(255, 190, 11, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse 20s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 4rem 0 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Search and Filter */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Crimson Pro', serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out both;
+            animation-delay: calc(var(--index) * 0.05s);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            gap: 1rem;
+        }
+
+        .card-link::after {
+            content: '→';
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-secondary);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-secondary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 1.5rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Chatbots Directory</h1>
+            <p class="subtitle">Your comprehensive guide to artificial intelligence assistants</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalCount">120+</span>
+                    <span class="stat-label">Chatbots</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2026</span>
+                    <span class="stat-label">Updated</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search chatbots by name, function, or category...">
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="general">General</button>
+                <button class="filter-btn" data-category="writing">Writing</button>
+                <button class="filter-btn" data-category="customer">Customer</button>
+                <button class="filter-btn" data-category="education">Education</button>
+                <button class="filter-btn" data-category="enterprise">Enterprise</button>
+                <button class="filter-btn" data-category="developer">Developer</button>
+            </div>
+        </div>
+
+        <div class="grid" id="chatbotsGrid"></div>
+
+        <footer>
+            <p>AI Chatbots Directory © 2026 | Curated with care | <a href="#top">Back to Top</a></p>
+        </footer>
+    </div>
+
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <script>
+        const chatbots = [
+            { name: 'ChatGPT', category: 'general', description: 'General-purpose AI for writing, coding, research, and problem-solving', url: 'https://chat.openai.com' },
+            { name: 'Claude', category: 'general', description: 'Conversational AI for analysis, writing, and coding with ethical focus', url: 'https://claude.ai' },
+            { name: 'Google Gemini', category: 'general', description: 'AI assistant integrated with Google Workspace for research and productivity', url: 'https://gemini.google.com' },
+            { name: 'Microsoft Copilot', category: 'general', description: 'AI productivity assistant integrated with Microsoft 365', url: 'https://copilot.microsoft.com' },
+            { name: 'Perplexity AI', category: 'general', description: 'AI-powered search engine with cited sources', url: 'https://www.perplexity.ai' },
+            { name: 'DeepSeek', category: 'general', description: 'Research-focused AI for in-depth topic exploration', url: 'https://www.deepseek.com' },
+            { name: 'Meta AI', category: 'general', description: 'AI assistant integrated with Facebook, Instagram, and WhatsApp', url: 'https://www.meta.ai' },
+            { name: 'Grok', category: 'general', description: 'Conversational AI with real-time X/Twitter integration and witty responses', url: 'https://grok.x.ai' },
+            { name: 'Pi', category: 'general', description: 'Empathetic AI companion for emotional support and conversations', url: 'https://pi.ai' },
+            { name: 'You.com', category: 'general', description: 'AI-powered search with conversational interface', url: 'https://you.com' },
+            { name: 'Mistral AI', category: 'general', description: 'Open-source AI models for various applications', url: 'https://chat.mistral.ai' },
+            { name: 'Poe', category: 'general', description: 'AI platform aggregating multiple chatbot models', url: 'https://poe.com' },
+            { name: 'HuggingChat', category: 'developer', description: 'Open-source AI chatbot by Hugging Face', url: 'https://huggingface.co/chat' },
+            { name: 'Character.AI', category: 'general', description: 'Interactive AI for creating and chatting with fictional characters', url: 'https://character.ai' },
+            { name: 'Replika', category: 'general', description: 'AI companion for emotional support and personal growth', url: 'https://replika.com' },
+            { name: 'Jasper AI', category: 'writing', description: 'AI writing assistant for marketing and content creation', url: 'https://www.jasper.ai' },
+            { name: 'Chatsonic', category: 'writing', description: 'AI chatbot with real-time web access for content creation', url: 'https://writesonic.com/chat' },
+            { name: 'Copy.ai', category: 'writing', description: 'AI copywriting tool for marketing content', url: 'https://www.copy.ai' },
+            { name: 'ZenoChat', category: 'writing', description: 'AI writing assistant for content generation', url: 'https://textcortex.com/zenochat' },
+            { name: 'Writesonic', category: 'writing', description: 'AI writing platform for blogs, ads, and marketing', url: 'https://writesonic.com' },
+            { name: 'Rytr', category: 'writing', description: 'AI writing assistant for various content types', url: 'https://rytr.me' },
+            { name: 'QuillBot', category: 'writing', description: 'AI paraphrasing and grammar checking tool', url: 'https://quillbot.com' },
+            { name: 'Wordtune', category: 'writing', description: 'AI writing companion for rewriting and tone adjustment', url: 'https://www.wordtune.com' },
+            { name: 'Grammarly', category: 'writing', description: 'AI-powered writing assistant with grammar and style suggestions', url: 'https://www.grammarly.com' },
+            { name: 'Notion AI', category: 'general', description: 'AI assistant integrated into Notion workspace', url: 'https://www.notion.so/product/ai' },
+            { name: 'Bing Chat', category: 'general', description: 'AI search assistant powered by GPT-4', url: 'https://www.bing.com/chat' },
+            { name: 'YouChat', category: 'general', description: 'AI chat integrated with You.com search', url: 'https://you.com/search?q=youchat' },
+            { name: 'Phind', category: 'developer', description: 'AI search engine for developers and technical queries', url: 'https://www.phind.com' },
+            { name: 'Khanmigo', category: 'education', description: 'AI tutor by Khan Academy for education', url: 'https://www.khanacademy.org/khan-labs' },
+            { name: 'Socratic', category: 'education', description: 'Educational AI chatbot for homework help', url: 'https://socratic.org' },
+            { name: 'Caktus AI', category: 'education', description: 'AI platform for students with writing and research tools', url: 'https://www.caktus.ai' },
+            { name: 'Gradescope AI', category: 'education', description: 'AI-assisted grading and assessment platform', url: 'https://www.gradescope.com' },
+            { name: 'Duolingo Max', category: 'education', description: 'AI language learning with conversation practice', url: 'https://www.duolingo.com' },
+            { name: 'Elsa Speak', category: 'education', description: 'AI English pronunciation coach', url: 'https://elsaspeak.com' },
+            { name: 'Hiver AI', category: 'customer', description: 'Customer service AI for email automation', url: 'https://hiverhq.com' },
+            { name: 'Intercom Fin', category: 'customer', description: 'AI customer support chatbot', url: 'https://www.intercom.com/fin' },
+            { name: 'Zendesk AI', category: 'customer', description: 'Customer service automation and support', url: 'https://www.zendesk.com' },
+            { name: 'Drift', category: 'customer', description: 'Conversational marketing and sales AI', url: 'https://www.drift.com' },
+            { name: 'Ada', category: 'customer', description: 'Customer service automation platform', url: 'https://www.ada.cx' },
+            { name: 'Tidio', category: 'customer', description: 'Customer service chatbot for e-commerce', url: 'https://www.tidio.com' },
+            { name: 'ManyChat', category: 'customer', description: 'Chatbot platform for Facebook Messenger and Instagram', url: 'https://manychat.com' },
+            { name: 'Landbot', category: 'customer', description: 'No-code chatbot builder for websites', url: 'https://landbot.io' },
+            { name: 'Chatfuel', category: 'customer', description: 'Chatbot platform for messaging apps', url: 'https://chatfuel.com' },
+            { name: 'MobileMonkey', category: 'customer', description: 'Chatbot marketing platform', url: 'https://mobilemonkey.com' },
+            { name: 'Botsonic', category: 'customer', description: 'AI chatbot for customer support', url: 'https://writesonic.com/botsonic' },
+            { name: 'YourGPT', category: 'customer', description: 'No-code AI chatbot builder for businesses', url: 'https://yourgpt.ai' },
+            { name: 'Botpress', category: 'developer', description: 'Open-source chatbot development platform', url: 'https://botpress.com' },
+            { name: 'Rasa', category: 'developer', description: 'Open-source conversational AI framework', url: 'https://rasa.com' },
+            { name: 'Bot Framework', category: 'developer', description: 'Enterprise bot development platform by Microsoft', url: 'https://dev.botframework.com' },
+            { name: 'Dialogflow', category: 'enterprise', description: 'Google\'s conversational AI platform', url: 'https://cloud.google.com/dialogflow' },
+            { name: 'Amazon Lex', category: 'enterprise', description: 'AWS conversational AI service', url: 'https://aws.amazon.com/lex' },
+            { name: 'Watson', category: 'enterprise', description: 'Enterprise AI assistant platform by IBM', url: 'https://www.ibm.com/watson/assistant' },
+            { name: 'Kore.ai', category: 'enterprise', description: 'Enterprise conversational AI platform', url: 'https://kore.ai' },
+            { name: 'Cognigy', category: 'enterprise', description: 'Enterprise conversational AI automation', url: 'https://www.cognigy.com' },
+            { name: 'LivePerson', category: 'enterprise', description: 'Conversational AI for customer engagement', url: 'https://www.liveperson.com' },
+            { name: 'Boost.ai', category: 'enterprise', description: 'Enterprise virtual agent platform', url: 'https://www.boost.ai' },
+            { name: 'Yellow.ai', category: 'enterprise', description: 'Enterprise automation platform with chatbots', url: 'https://yellow.ai' },
+            { name: 'Inbenta', category: 'customer', description: 'AI-powered customer support automation', url: 'https://www.inbenta.com' },
+            { name: 'Helpshift', category: 'customer', description: 'Mobile customer support with AI', url: 'https://www.helpshift.com' },
+            { name: 'Bold360', category: 'customer', description: 'AI-powered customer engagement platform', url: 'https://www.bold360.com' },
+            { name: 'Acquire', category: 'customer', description: 'Customer communication platform with AI', url: 'https://acquire.io' },
+            { name: 'Freshchat', category: 'customer', description: 'AI-powered messaging for customer support', url: 'https://www.freshworks.com/live-chat-software' },
+            { name: 'Crisp', category: 'customer', description: 'Customer messaging platform with AI chatbot', url: 'https://crisp.chat' },
+            { name: 'Tars', category: 'customer', description: 'Conversational landing page builder', url: 'https://hellotars.com' },
+            { name: 'Infeedo', category: 'enterprise', description: 'AI chatbot for employee engagement and feedback', url: 'https://infeedo.com' },
+            { name: 'Leena AI', category: 'enterprise', description: 'Employee experience chatbot', url: 'https://leena.ai' },
+            { name: 'Paradox', category: 'enterprise', description: 'Recruitment chatbot for HR', url: 'https://www.paradox.ai' },
+            { name: 'Eightfold AI', category: 'enterprise', description: 'AI talent intelligence platform', url: 'https://eightfold.ai' },
+            { name: 'X.AI', category: 'general', description: 'Meeting scheduling AI assistant', url: 'https://x.ai' },
+            { name: 'Motion', category: 'general', description: 'AI-powered calendar and task management', url: 'https://www.usemotion.com' },
+            { name: 'Reclaim AI', category: 'general', description: 'Smart calendar assistant', url: 'https://reclaim.ai' },
+            { name: 'Trevor AI', category: 'general', description: 'AI task scheduling assistant', url: 'https://trevorai.com' },
+            { name: 'Fireflies.ai', category: 'general', description: 'AI meeting assistant and transcription', url: 'https://fireflies.ai' },
+            { name: 'Otter.ai', category: 'general', description: 'AI meeting notes and transcription', url: 'https://otter.ai' },
+            { name: 'Fathom', category: 'general', description: 'Free AI meeting assistant', url: 'https://fathom.video' },
+            { name: 'tl;dv', category: 'general', description: 'AI meeting recorder and summarizer', url: 'https://tldv.io' },
+            { name: 'Sembly AI', category: 'general', description: 'AI team assistant for meetings', url: 'https://www.sembly.ai' },
+            { name: 'Tactiq', category: 'general', description: 'AI meeting transcript tool', url: 'https://tactiq.io' },
+            { name: 'Grain', category: 'general', description: 'AI meeting recording and insights', url: 'https://grain.com' },
+            { name: 'Krisp', category: 'general', description: 'AI noise cancellation and meeting assistant', url: 'https://krisp.ai' },
+            { name: 'Voiceflow', category: 'developer', description: 'Conversational AI platform for building chatbots', url: 'https://www.voiceflow.com' },
+            { name: 'Chatbase', category: 'developer', description: 'Custom chatbot trained on your data', url: 'https://www.chatbase.co' },
+            { name: 'CustomGPT', category: 'developer', description: 'Build custom AI chatbots with your content', url: 'https://customgpt.ai' },
+            { name: 'SiteGPT', category: 'developer', description: 'AI chatbot for website support', url: 'https://sitegpt.ai' },
+            { name: 'Dante AI', category: 'developer', description: 'Custom AI chatbot builder', url: 'https://dante-ai.com' },
+            { name: 'Chai', category: 'general', description: 'AI chatbot platform with multiple personalities', url: 'https://chai.ml' },
+            { name: 'Anima AI', category: 'general', description: 'AI companion for roleplay and conversation', url: 'https://myanima.ai' },
+            { name: 'Crushon.AI', category: 'general', description: 'Unfiltered AI character chat platform', url: 'https://crushon.ai' },
+            { name: 'Janitor AI', category: 'general', description: 'Character AI chatbot with customization', url: 'https://janitorai.com' },
+            { name: 'DreamJourney AI', category: 'general', description: 'AI roleplay chatbot with advanced memory', url: 'https://dreamjourneyai.com' },
+            { name: 'Kuki AI', category: 'general', description: 'Award-winning conversational AI', url: 'https://www.kuki.ai' },
+            { name: 'Couple.me', category: 'general', description: 'AI girlfriend/companion platform', url: 'https://couple.me' },
+            { name: 'AI Dungeon', category: 'general', description: 'AI-powered text adventure game', url: 'https://play.aidungeon.io' },
+            { name: 'NovelAI', category: 'writing', description: 'AI storytelling and image generation', url: 'https://novelai.net' },
+            { name: 'Sudowrite', category: 'writing', description: 'AI writing assistant for creative fiction', url: 'https://www.sudowrite.com' },
+            { name: 'ShortlyAI', category: 'writing', description: 'AI writing partner for fiction and blogs', url: 'https://www.shortlyai.com' },
+            { name: 'LongShot AI', category: 'writing', description: 'AI writing assistant with fact-checking', url: 'https://www.longshot.ai' },
+            { name: 'Hypotenuse', category: 'writing', description: 'AI content creation platform', url: 'https://www.hypotenuse.ai' },
+            { name: 'ContentBot', category: 'writing', description: 'AI content creation for marketing', url: 'https://contentbot.ai' },
+            { name: 'Article Forge', category: 'writing', description: 'AI article writing tool', url: 'https://www.articleforge.com' },
+            { name: 'NiCE AI', category: 'customer', description: 'Customer service automation with AI', url: 'https://www.nice.com' },
+            { name: 'SillyTavern', category: 'developer', description: 'Advanced open-source AI chat interface', url: 'https://github.com/SillyTavern/SillyTavern' },
+            { name: 'Wit.ai', category: 'developer', description: 'Natural language processing for developers', url: 'https://wit.ai' },
+            { name: 'OpenDialog', category: 'developer', description: 'Open-source conversation management', url: 'https://opendialog.ai' },
+            { name: 'Botonic', category: 'developer', description: 'Open-source chatbot framework', url: 'https://botonic.io' },
+            { name: 'Claudia Bot', category: 'developer', description: 'Serverless chatbot framework', url: 'https://claudiajs.com/claudia-bot-builder.html' },
+            { name: 'Tock', category: 'developer', description: 'Open-source conversational AI toolkit', url: 'https://doc.tock.ai' },
+            { name: 'BotMan', category: 'developer', description: 'PHP chatbot framework', url: 'https://botman.io' },
+            { name: 'Bottender', category: 'developer', description: 'Chatbot framework for messaging platforms', url: 'https://bottender.js.org' },
+            { name: 'DeepPavlov', category: 'developer', description: 'Open-source NLP framework', url: 'https://deeppavlov.ai' },
+            { name: 'Golem', category: 'developer', description: 'Python chatbot framework', url: 'https://golem.ai' },
+            { name: 'Deep AI', category: 'general', description: 'AI tools for image and text generation', url: 'https://deepai.org' },
+            { name: 'Cleverbot', category: 'general', description: 'Long-running conversational AI', url: 'https://www.cleverbot.com' },
+            { name: 'Mitsuku', category: 'general', description: 'Multiple award-winning chatbot', url: 'https://www.pandorabots.com/mitsuku' },
+            { name: 'Rose AI', category: 'general', description: 'AI-powered data platform', url: 'https://rose.ai' },
+            { name: 'Snatchbot', category: 'customer', description: 'Chatbot platform for businesses', url: 'https://snatchbot.me' },
+            { name: 'Aivo', category: 'customer', description: 'Conversational AI for customer service', url: 'https://www.aivo.co' },
+            { name: 'Rulai', category: 'enterprise', description: 'Enterprise AI chatbot platform', url: 'https://www.rul.ai' },
+            { name: 'BotStar', category: 'customer', description: 'Visual chatbot builder', url: 'https://www.botstar.com' },
+            { name: 'Morph.ai', category: 'customer', description: 'Chatbot platform for Messenger', url: 'https://morph.ai' }
+        ];
+
+        let filteredBots = [...chatbots];
+        let currentCategory = 'all';
+
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
+        }
+
+        function renderChatbots() {
+            const grid = document.getElementById('chatbotsGrid');
+            grid.innerHTML = '';
+
+            if (filteredBots.length === 0) {
+                grid.innerHTML = '<div class="no-results">No chatbots found matching your criteria.</div>';
+                return;
+            }
+
+            filteredBots.forEach((bot, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.setProperty('--index', index);
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="logo">${getInitials(bot.name)}</div>
+                        <h3 class="card-title">${bot.name}</h3>
+                    </div>
+                    <span class="card-category">${bot.category}</span>
+                    <p class="card-description">${bot.description}</p>
+                    <a href="${bot.url}" target="_blank" rel="noopener noreferrer" class="card-link">
+                        Visit Website
+                    </a>
+                `;
+                
+                grid.appendChild(card);
+            });
+
+            document.getElementById('totalCount').textContent = filteredBots.length === chatbots.length ? '120+' : filteredBots.length;
+        }
+
+        function filterBots(searchTerm, category) {
+            filteredBots = chatbots.filter(bot => {
+                const matchesSearch = !searchTerm || 
+                    bot.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    bot.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    bot.category.toLowerCase().includes(searchTerm.toLowerCase());
+                
+                const matchesCategory = category === 'all' || bot.category === category;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            renderChatbots();
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            filterBots(e.target.value, currentCategory);
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                const searchTerm = document.getElementById('searchInput').value;
+                filterBots(searchTerm, currentCategory);
+            });
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initial render
+        renderChatbots();
+    </script>
+</body>
+</html>
